@@ -2,12 +2,14 @@
 
 void Button::Draw()
 {
-	ISCREATED
+	ISCREATED;
+	getWindow()->draw(rect);
+	getWindow()->draw(text);
 }
 
 void Button::Update()
 {
-	ISCREATED
+	ISCREATED;
 }
 
 
@@ -18,43 +20,50 @@ void Button::Init()
 	released = false;
 }
 
-void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode)
+void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode = TextMode(Mode::right, Mode::center))
 {
-	this->position = position;
-	this->size = size;
-	this->color = color;
-	this->textColor = textColor;
-	this->message = message;
-	this->fontSize = fontSize;
-	this->mode = mode;
-
 	created = true;
+	this->message = message;
+	text.setString(message);
+	setFontSize(fontSize);
+	setSize(size);
+	setPosition(position);
+	setColor(color);
+	setTextColor(textColor);
+	setMode(mode);
+
+	if (this->size.x == 0 && this->size.y == 0)
+		countSize();
+	else
+		diplacement = sf::Vector2f(0, 0);
+
+	setPosition(getPosition() + diplacement);
 }
 
 void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY)
 {
-	setPosition(position);
+	created = true;
+	this->message = message;
+	text.setString(message);
+	setFontSize(fontSize);
 	setSize(size);
+	setPosition(position);
 	setColor(color);
 	setTextColor(textColor);
-	this->message = message;
-	this->fontSize = fontSize;
-	this->mode = TextMode(modeX, modeY);
-
-	text = sf::Text(message, *font, fontSize);
+	setMode(TextMode(modeX, modeY));
 
 	if (this->size.x == 0 && this->size.y == 0)
-	{
 		countSize();
-	}
 	else
-	{
 		diplacement = sf::Vector2f(0, 0);
-	}
 
 	setPosition(getPosition() + diplacement);
+	
+	text.setPosition(getTextPosition());
+	text.setFillColor(getTextColor());
 
-	created = true;
+	rect.setPosition(getPosition());
+	rect.setFillColor(getColor());
 }
 
 bool Button::Find()

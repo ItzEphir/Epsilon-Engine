@@ -3,7 +3,7 @@
 #include "SFML/System.hpp"
 #include <string>
 
-#define ISCREATED { if(!created) { throw "Button wasn`t initialized, please, use Button::Create() to initialize the button."; } }
+#define ISCREATED { if(!isCreated()) { throw "Button wasn`t initialized, please, use Button::Create() to initialize the button."; } }
 
 enum class Mode
 {
@@ -32,109 +32,104 @@ class Button :
     public IDrawable
 {
 public:
-    void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode);
-    void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY);
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode);
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY);
 
-    void Give(void (*aimed)(), void (*pressed)(), void (*released)())
+    virtual void Give(void (*aimed)(), void (*pressed)(), void (*released)())
     {
-        ISCREATED
-            whenAimed = aimed;
+        ISCREATED;
+        whenAimed = aimed;
         whenPressed = pressed;
         whenReleased = released;
     }
 
     virtual void Draw() override;
-    virtual void Update() override;
+    virtual void Update() override = 0;
 
     sf::String getMessage()
     {
+        ISCREATED;
         return message;
     }
 
     sf::Text getText()
     {
+        ISCREATED;
         return text;
     }
 
     sf::Vector2f getPosition()
     {
+        ISCREATED;
         return position;
     }
 
     sf::Vector2f getSize()
     {
+        ISCREATED;
         return size;
     }
 
     sf::Vector2f getTextPosition()
     {
+        ISCREATED;
         return textPosition;
     }
 
     sf::Color getColor()
     {
+        ISCREATED;
         return color;
     }
 
     sf::Color getTextColor()
     {
+        ISCREATED;
         return textColor;
     }
 
     std::shared_ptr<sf::Font> getFont()
     {
+        ISCREATED;
         return font;
     }
 
     unsigned int getFontSize()
     {
+        ISCREATED;
         return fontSize;
     }
 
     TextMode getMode()
     {
+        ISCREATED;
         return mode;
     }
 
     bool getAimed()
     {
+        ISCREATED;
         return aimed;
     }
 
     bool getPressed()
     {
+        ISCREATED;
         return pressed;
     }
 
     bool getReleased()
     {
+        ISCREATED;
         return released;
-    }
-
-    virtual std::string get—ondition()
-    {
-        std::string result = "";
-
-        if (aimed)
-        {
-            result += "aimed ";
-        }
-        if (pressed)
-        {
-            result += "pressed";
-        }
-        if (released)
-        {
-            result += "released";
-        }
-
-        return result;
     }
 
 protected:
     Button(std::shared_ptr<sf::RenderWindow> rw, std::shared_ptr<sf::Font> font)
-    : font(font)
+        : font(font)
     {
+        rect = sf::RectangleShape();
+        text = sf::Text();
         setWindow(rw);
         Init();
     }
@@ -144,6 +139,7 @@ protected:
     void setPosition(sf::Vector2f newPosition)
     {
         position = newPosition;
+        rect.setPosition(position);
     }
 
     void setSize(sf::Vector2f newSize)
@@ -154,36 +150,43 @@ protected:
     void setTextPosition(sf::Vector2f newTextPosition)
     {
         textPosition = newTextPosition;
+        text.setPosition(textPosition);
     }
 
     void setColor(sf::Color newColor)
     {
         color = newColor;
+        rect.setFillColor(color);
     }
 
     void setTextColor(sf::Color newTextColor)
     {
         textColor = newTextColor;
+        text.setFillColor(textColor);
     }
 
     void setFont(std::shared_ptr<sf::Font> newFont)
     {
         font = newFont;
+        text.setFont(*font);
     }
 
     void setFontSize(unsigned int newFontSize)
     {
         fontSize = newFontSize;
+        text.setCharacterSize(fontSize);
     }
 
     void setMode(TextMode newMode)
     {
         mode = newMode;
+        countTextPosition();
     }
 
     void setMode(Mode newModeX, Mode newModeY)
     {
         mode = TextMode(newModeX, newModeY);
+        countTextPosition();
     }
 
     void setAimed(bool isAimed)
@@ -201,6 +204,30 @@ protected:
         released = isReleased;
     }
 
+    std::shared_ptr<sf::Text> takeText()
+    {
+        return std::make_shared<sf::Text>(text);
+    }
+
+    std::shared_ptr<sf::RectangleShape> takeRect()
+    {
+        return std::make_shared<sf::RectangleShape>(rect);
+    }
+
+    void turnOn()
+    {
+        created = true;
+    }
+
+    bool isCreated()
+    {
+        return created;
+    }
+
+    void (*whenAimed)();
+    void (*whenPressed)();
+    void (*whenReleased)();
+
 private:
     void Init();
 
@@ -211,10 +238,6 @@ private:
     bool aimed;
     bool pressed;
     bool released;
-
-    void (*whenAimed)();
-    void (*whenPressed)();
-    void (*whenReleased)();
 
     sf::Vector2f position;
     sf::Vector2f textPosition;
@@ -228,6 +251,7 @@ private:
 
     sf::String message;
     sf::Text text;
+    sf::RectangleShape rect;
 
     unsigned int fontSize;
     TextMode mode;

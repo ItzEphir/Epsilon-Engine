@@ -132,12 +132,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActiveButton.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="EpsilonEngine.cpp" />
     <ClCompile Include="UsualButton.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActiveButton.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="IDrawable.h" />

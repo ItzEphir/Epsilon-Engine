@@ -6,10 +6,13 @@
 
 int main()
 {
-    sf::Uint32* style = new sf::Uint32(sf::Style::None);
     std::setlocale(LC_ALL, "Russian");
-    sf::VideoMode vm = sf::VideoMode(640, 360);
-    std::shared_ptr<sf::RenderWindow> rw = std::make_shared<sf::RenderWindow>(vm, "", *style);
+
+    sf::VideoMode screen = sf::VideoMode::getDesktopMode();
+    sf::VideoMode countedScreen = sf::VideoMode(1920, 1080);
+
+    sf::VideoMode vm = sf::VideoMode(640 * screen.width / countedScreen.width, 360 * screen.height / countedScreen.height);
+    std::shared_ptr<sf::RenderWindow> rw = std::make_shared<sf::RenderWindow>(vm, "", sf::Style::None);
 
     Application application = Application(rw);
 
@@ -31,8 +34,7 @@ int main()
             {
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F11))
                 {
-                    style = new sf::Uint32( sf::Style::Resize);
-                    rw->create(vm, "", *style);
+                    rw->create(vm, "", sf::Style::Resize);
                     rw->setFramerateLimit(60);
                 }
             }
