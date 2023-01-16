@@ -4,6 +4,8 @@
 #include "Application.h"
 #include <Windows.h>
 
+static sf::Uint16 STYLE = sf::Style::Default;
+
 int main()
 {
     std::setlocale(LC_ALL, "Russian");
@@ -13,6 +15,8 @@ int main()
 
     sf::VideoMode vm = sf::VideoMode(640 * screen.width / countedScreen.width, 360 * screen.height / countedScreen.height);
     std::shared_ptr<sf::RenderWindow> rw = std::make_shared<sf::RenderWindow>(vm, "", sf::Style::None);
+
+    STYLE = sf::Style::None;
 
     Application application = Application(rw);
 

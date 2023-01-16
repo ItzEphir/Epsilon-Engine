@@ -132,26 +132,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ActiveButton.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Button.cpp" />
     <ClCompile Include="EpsilonEngine.cpp" />
-    <ClCompile Include="UsualButton.cpp" />
+    <ClCompile Include="Labels\ActiveButton.cpp" />
+    <ClCompile Include="Labels\Background.cpp" />
+    <ClCompile Include="Labels\Button.cpp" />
+    <ClCompile Include="Labels\ImageButton.cpp" />
+    <ClCompile Include="Labels\Rect.cpp" />
+    <ClCompile Include="Labels\RenderImage.cpp" />
+    <ClCompile Include="Labels\Text.cpp" />
+    <ClCompile Include="Labels\UsualButton.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="StartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ActiveButton.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="IDrawable.h" />
-    <ClInclude Include="ISaveble.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="UsualButton.h" />
+    <ClInclude Include="Buttons.hpp" />
+    <ClInclude Include="IScreen.h" />
+    <ClInclude Include="Labels.hpp" />
+    <ClInclude Include="Labels\ActiveButton.h" />
+    <ClInclude Include="Labels\Background.h" />
+    <ClInclude Include="Labels\Button.h" />
+    <ClInclude Include="Labels\IDrawable.h" />
+    <ClInclude Include="Labels\ImageButton.h" />
+    <ClInclude Include="Labels\ISaveble.h" />
+    <ClInclude Include="Labels\Rect.h" />
+    <ClInclude Include="Labels\RenderImage.h" />
+    <ClInclude Include="Labels\Text.h" />
+    <ClInclude Include="Labels\UsualButton.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="StartScreen.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="EpsilonEngine.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -4,6 +4,9 @@
 class IDrawable
 {
 public:
+
+	IDrawable(std::shared_ptr<sf::RenderWindow> window) : rw(window) {}
+
 	virtual void Draw() = 0;
 	virtual void Update() = 0;
 

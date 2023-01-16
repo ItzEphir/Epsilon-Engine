@@ -7,8 +7,8 @@ class ActiveButton :
 public:
     ActiveButton(std::shared_ptr<sf::RenderWindow> rw, std::shared_ptr<sf::Font> font);
 
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color activeColor, sf::Color textColor, sf::Color activeTextColor, sf::String message, unsigned int fontSize, TextMode mode);
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode) override;
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color activeColor, sf::Color textColor, sf::Color activeTextColor, sf::String message, unsigned int fontSize, CMode mode);
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, CMode mode) override;
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color activeColor, sf::Color textColor, sf::Color activeTextColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY);
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY) override;
 

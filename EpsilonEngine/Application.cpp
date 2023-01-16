@@ -2,25 +2,37 @@
 
 void Application::Load()
 {
+	
 	// icon = sf::Image();
 	// icon.loadFromFile("ico/Epsilon.png");
 	// window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+	screen.reset(new StartScreen(window, font));
+
+	font = std::make_shared<sf::Font>();
+	font->loadFromFile("src/fonts/Nexa-Trial-Bold.ttf");
+
+	screen->Load();
 }
 
 void Application::Update()
 {
+	screen->Update();
 
+	if (screen->isEnded())
+	{
+		screen = screen->Next();
+		screen->Load();
+	}
+
+	// screen = screen->Next();
 }
 
 void Application::Draw()
 {
-	// sf::RectangleShape bg = sf::RectangleShape(sf::Vector2f(window->getSize().x, window->getSize().y));
-	// bg.setFillColor(sf::Color(22, 26, 31, 255));
-	// bg.setPosition(sf::Vector2f(0, 0));
-	// window->draw(bg);
+	screen->Draw();
 }
 
 void Application::Close()
 {
-
+	window->close();
 }

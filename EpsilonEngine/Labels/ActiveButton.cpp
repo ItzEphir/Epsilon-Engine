@@ -3,7 +3,7 @@
 ActiveButton::ActiveButton(std::shared_ptr<sf::RenderWindow> rw, std::shared_ptr<sf::Font> font) 
 	: UsualButton(rw, font) { }
 
-void ActiveButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color activeColor, sf::Color textColor, sf::Color activeTextColor, sf::String message, unsigned int fontSize, TextMode mode)
+void ActiveButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color activeColor, sf::Color textColor, sf::Color activeTextColor, sf::String message, unsigned int fontSize, CMode mode)
 {
 	turnOn();
 	UsualButton::Create(position, size, color, textColor, message, fontSize, mode);
@@ -11,7 +11,7 @@ void ActiveButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color co
 	setActiveTextColor(activeTextColor);
 }
 
-void ActiveButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, TextMode mode)
+void ActiveButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, CMode mode)
 {
 	turnOn();
 	UsualButton::Create(position, size, color, textColor, message, fontSize, mode);

@@ -1,5 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "IScreen.h"
+#include "StartScreen.h"
 
 #ifdef _DEBUG
 #include <iostream>
@@ -8,9 +10,11 @@
 class Application final
 {
 public:
-	Application(std::shared_ptr<sf::RenderWindow> _window)
+
+	Application(std::shared_ptr<sf::RenderWindow> window) : window(window)
 	{
-		window = _window;
+		font = std::make_shared<sf::Font>();
+		font->loadFromFile("src/fonts/Nexa-Trial-Bold.ttf");
 	}
 
 	void Load();
@@ -22,7 +26,12 @@ public:
 	void Close();
 
 protected:
+
 	std::shared_ptr<sf::RenderWindow> window;
+	std::shared_ptr<sf::Font> font;
 	sf::Image icon;
+
+	std::shared_ptr<IScreen> screen;
+
 };
 
