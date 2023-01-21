@@ -1,12 +1,11 @@
 #pragma once
-#include "IDrawable.h"
-#include <iostream>
+#include "Drawable.h"
 
-class RenderImage : public IDrawable
+class RenderImage : public Drawable
 {
 public:
 
-    RenderImage(std::shared_ptr<sf::RenderWindow> window) : IDrawable(window)
+    RenderImage(std::shared_ptr<Window> window) : Drawable(window)
     {
         image = sf::Image();
         texture = sf::Texture();
@@ -16,13 +15,13 @@ public:
         scale = sf::Vector2f();
     }
 
-    RenderImage(std::shared_ptr<sf::RenderWindow> window, std::string filename);
+    RenderImage(std::shared_ptr<Window> window, std::string filename);
 
-    RenderImage(std::shared_ptr<sf::RenderWindow> window, sf::Image image);
+    RenderImage(std::shared_ptr<Window> window, sf::Image image);
 
-    RenderImage(std::shared_ptr<sf::RenderWindow> window, sf::Texture texture);
+    RenderImage(std::shared_ptr<Window> window, sf::Texture texture);
 
-    RenderImage(std::shared_ptr<sf::RenderWindow> window, sf::Sprite sprite);
+    RenderImage(std::shared_ptr<Window> window, sf::Sprite sprite);
 
     virtual void LoadFromFile(std::string filename)
     {
@@ -57,7 +56,7 @@ public:
     virtual void Draw() override
     {
         sprite.setTexture(texture);
-        getWindow()->draw(sprite);
+        window->draw(sprite);
     }
 
     sf::Vector2f getPosition()
@@ -67,8 +66,8 @@ public:
 
     virtual void setPosition(sf::Vector2f newPosition)
     {
-        if (newPosition.x > 0 && newPosition.x < getWindow()->getSize().x &&
-            newPosition.y > 0 && newPosition.y < getWindow()->getSize().y)
+        if (newPosition.x > 0 && newPosition.x < window->getSize().x &&
+            newPosition.y > 0 && newPosition.y < window->getSize().y)
         {
             position = newPosition;
             sprite.setPosition(position);

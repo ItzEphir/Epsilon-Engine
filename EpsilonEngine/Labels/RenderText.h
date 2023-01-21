@@ -24,7 +24,7 @@ public:
 		position = newPosition;
 	}
 
-	virtual sf::Vector2f getPosition()
+	sf::Vector2f getPosition()
 	{
 		return position;
 	}
@@ -36,12 +36,12 @@ public:
 		size = sf::Vector2f(text.getLocalBounds().width, text.getLocalBounds().height);
 	}
 
-	virtual sf::Vector2f getSize()
+	sf::Vector2f getSize()
 	{
 		return size;
 	}
 
-	virtual int getLength()
+	int getLength()
 	{
 		return str.getSize();
 	}

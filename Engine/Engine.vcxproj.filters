@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="labels">
+      <UniqueIdentifier>{00ad2296-ec63-4e37-8603-e9852edbe736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="window">
+      <UniqueIdentifier>{4e6ad805-2bca-4780-885a-9e66bb83f7e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="buttons">
+      <UniqueIdentifier>{8bbd7da1-bbb7-491b-a8c1-9fb85d2ea54a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="labels\Drawable.h">
+      <Filter>labels</Filter>
+    </ClInclude>
+    <ClInclude Include="window\Window.h">
+      <Filter>window</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\RenderImage.h">
+      <Filter>labels</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\buttons\Button.h">
+      <Filter>buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\Rectangle.h">
+      <Filter>labels</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\Text.h">
+      <Filter>labels</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\buttons\TextButton.h">
+      <Filter>buttons</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="window\Window.cpp">
+      <Filter>window</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\RenderImage.cpp">
+      <Filter>labels</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\buttons\Button.cpp">
+      <Filter>buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\Rectangle.cpp">
+      <Filter>labels</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\Text.cpp">
+      <Filter>labels</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\buttons\TextButton.cpp">
+      <Filter>buttons</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

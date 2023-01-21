@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{97bd246e-aa36-4b37-a510-412cca842f33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EpsilonEngine.cpp">
@@ -26,7 +29,7 @@
     <ClCompile Include="Labels\UsualButton.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Labels\Text.cpp">
+    <ClCompile Include="Labels\RenderText.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Labels\RenderImage.cpp">
@@ -73,7 +76,7 @@
     <ClInclude Include="Labels\IDrawable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Labels\Text.h">
+    <ClInclude Include="Labels\RenderText.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Labels\RenderImage.h">
@@ -97,8 +100,33 @@
     <ClInclude Include="Labels\ActiveButton.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="src\fonts\Nexa-Trial-Bold.ttf">
+      <Filter>Файлы ресурсов</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="src\icons\DarkIcon.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="src\icons\LightIcon.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="src\pngs\start\Dark.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="src\pngs\start\Light.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EpsilonEngine1.rc" />
   </ItemGroup>
 </Project>

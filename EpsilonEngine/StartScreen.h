@@ -3,6 +3,7 @@
 #include "IScreen.h"
 #include "Menu.h"
 #include "Labels.hpp"
+#include "windows.h"
 
 class StartScreen : public IScreen
 {
@@ -26,10 +27,11 @@ protected:
 
 private:
 
-    void firstLoading()
-    {
+    void firstLoading();
 
-    }
+    void secondLoading();
+
+    void thirdLoading();
 
     std::shared_ptr<sf::Font> font;
 
@@ -37,7 +39,7 @@ private:
     sf::Sprite logo;
     
     int loading = 0;
-    int lastloading = 2;
+    const int lastloading = 3;
 
     bool loaded = false;
 

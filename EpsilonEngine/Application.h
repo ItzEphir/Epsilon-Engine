@@ -7,7 +7,7 @@
 #include <iostream>
 #endif
 
-class Application final
+class Application
 {
 public:
 
@@ -17,13 +17,13 @@ public:
 		font->loadFromFile("src/fonts/Nexa-Trial-Bold.ttf");
 	}
 
-	void Load();
+	virtual void Load();
 
-	void Update();
+	virtual void Update();
 	
-	void Draw();
+	virtual void Draw();
 
-	void Close();
+	virtual void Close();
 
 protected:
 

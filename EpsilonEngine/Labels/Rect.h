@@ -38,6 +38,18 @@ public:
         return color;
     }
 
+    virtual void setSize(sf::Vector2f newSize)
+    {
+        size = newSize;
+        shape.setSize(size);
+    }
+
+    virtual void setPosition(sf::Vector2f newPosition)
+    {
+        position = newPosition;
+        shape.setPosition(position);
+    }
+
     virtual void setColor(sf::Color newColor)
     {
         color = newColor;
@@ -49,18 +61,6 @@ protected:
     virtual sf::RectangleShape& takeShape()
     {
         return shape;
-    }
-
-    virtual void setSize(sf::Vector2f newSize)
-    {
-        size = newSize;
-        shape.setSize(size);
-    }
-
-    virtual void setPosition(sf::Vector2f newPosition)
-    {
-        position = newPosition;
-        shape.setPosition(position);
     }
 
 private:

@@ -23,8 +23,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0d422112-0df8-489b-8c76-e0df83399619}</ProjectGuid>
-    <RootNamespace>EpsilonEngine</RootNamespace>
+    <ProjectGuid>{f29f0776-6656-4843-af44-fc538c8d2f5c}</ProjectGuid>
+    <RootNamespace>Engine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -42,13 +42,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -56,12 +56,6 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.props" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\lc.props" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\marmasm.props" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.props" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\ShaderGraphContentTask.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -78,15 +72,6 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <SourcePath>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\EpsilonEngine\src;$(SourcePath)</SourcePath>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <ReferencePath>$(ReferencePath)</ReferencePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <SourcePath>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\EpsilonEngine\src;$(VC_SourcePath);</SourcePath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -95,9 +80,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,11 +94,10 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,9 +106,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\Engine</AdditionalUsingDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,83 +120,39 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\Engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Users\dydvo\source\repos\cpp\EpsilonEngine\EpsilonEngine\Engine</AdditionalUsingDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Application.cpp" />
-    <ClCompile Include="EpsilonEngine.cpp" />
-    <ClCompile Include="Labels\ActiveButton.cpp" />
-    <ClCompile Include="Labels\Background.cpp" />
-    <ClCompile Include="Labels\Button.cpp" />
-    <ClCompile Include="Labels\ImageButton.cpp" />
-    <ClCompile Include="Labels\Rect.cpp" />
-    <ClCompile Include="Labels\RenderImage.cpp" />
-    <ClCompile Include="Labels\RenderText.cpp" />
-    <ClCompile Include="Labels\UsualButton.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="StartScreen.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Application.h" />
-    <ClInclude Include="Buttons.hpp" />
-    <ClInclude Include="IScreen.h" />
-    <ClInclude Include="Labels.hpp" />
-    <ClInclude Include="Labels\ActiveButton.h" />
-    <ClInclude Include="Labels\Background.h" />
-    <ClInclude Include="Labels\Button.h" />
-    <ClInclude Include="Labels\IDrawable.h" />
-    <ClInclude Include="Labels\ImageButton.h" />
-    <ClInclude Include="Labels\ISaveble.h" />
-    <ClInclude Include="Labels\Rect.h" />
-    <ClInclude Include="Labels\RenderImage.h" />
-    <ClInclude Include="Labels\RenderText.h" />
-    <ClInclude Include="Labels\UsualButton.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="StartScreen.h" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.vcxproj">
-      <Project>{f29f0776-6656-4843-af44-fc538c8d2f5c}</Project>
-    </ProjectReference>
+    <ClInclude Include="labels\buttons\Button.h" />
+    <ClInclude Include="labels\buttons\TextButton.h" />
+    <ClInclude Include="labels\Drawable.h" />
+    <ClInclude Include="labels\Rectangle.h" />
+    <ClInclude Include="labels\RenderImage.h" />
+    <ClInclude Include="labels\Text.h" />
+    <ClInclude Include="window\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="src\fonts\Nexa-Trial-Bold.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="src\icons\DarkIcon.png" />
-    <Image Include="src\icons\LightIcon.png" />
-    <Image Include="src\pngs\start\Dark.png" />
-    <Image Include="src\pngs\start\Light.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="EpsilonEngine1.rc" />
+    <ClCompile Include="labels\buttons\Button.cpp" />
+    <ClCompile Include="labels\buttons\TextButton.cpp" />
+    <ClCompile Include="labels\Rectangle.cpp" />
+    <ClCompile Include="labels\RenderImage.cpp" />
+    <ClCompile Include="labels\Text.cpp" />
+    <ClCompile Include="window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\lc.targets" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\marmasm.targets" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\MeshContentTask.targets" />
-    <Import Project="$(VCTargetsPath)\BuildCustomizations\ShaderGraphContentTask.targets" />
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\SFML-cpp.redist.2.5.1.1\build\native\SFML-cpp.redist.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SFML-cpp.redist.2.5.1.1\build\native\SFML-cpp.redist.props'))" />
     <Error Condition="!Exists('..\packages\SFML-cpp.2.5.1\build\native\SFML-cpp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SFML-cpp.2.5.1\build\native\SFML-cpp.props'))" />

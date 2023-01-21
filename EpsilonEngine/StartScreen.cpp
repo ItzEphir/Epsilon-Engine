@@ -5,18 +5,32 @@ void StartScreen::Update()
 	switch (loading)
 	{
 	case 0:
+		
 		break;
 	case 1:
+		firstLoading();
 		break;
 	case 2:
+		secondLoading();
+		break;
+	case 3:
+		thirdLoading();
 		break;
 	default:
 		break;
 	}
+
+	if (loading == lastloading)
+	{
+		setEnded(true);
+	}
+
 	for (int i = 0; i < drawables.size(); i++)
 	{
 		drawables[i]->Update();
 	}
+
+	loading++;
 }
 
 void StartScreen::Draw()
@@ -54,5 +68,28 @@ void StartScreen::Load()
 	text.Centralize();
 	drawables.push_back(std::make_shared<RenderText>(text));
 
-	nextScreen = std::make_shared<Menu>(Menu(window));
+	Rect slider = Rect(window, sf::Vector2f(window->getSize().x / 2 - 200, window->getSize().y / 2 + 150), sf::Vector2f(2, 10));
+	slider.setColor(sf::Color::White);
+	drawables.push_back(std::make_shared<Rect>(slider));
+}
+
+void StartScreen::firstLoading()
+{
+	// Sleep(9000);
+	std::shared_ptr<Rect> sl = std::dynamic_pointer_cast<Rect>(drawables[3]);
+	sl->setSize(sf::Vector2f(200, 10));
+}
+
+void StartScreen::secondLoading()
+{
+	nextScreen = std::make_shared<Menu>(Menu(window, font));
+	Sleep(1000);
+	std::shared_ptr<Rect> sl = std::dynamic_pointer_cast<Rect>(drawables[3]);
+	sl->setSize(sf::Vector2f(400, 10));
+}
+
+void StartScreen::thirdLoading()
+{
+	// Sleep(1000);
+	
 }

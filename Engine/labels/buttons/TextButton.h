@@ -1,30 +1,37 @@
 #pragma once
 #include "Button.h"
+#include "../Text.h"
 
-class UsualButton :
-    public Button
+class TextButton : public Button
 {
 public:
+    
+    TextButton(std::shared_ptr<Window> window) : Button(window), text(window)
+    {
+        
+    }
 
-    UsualButton(std::shared_ptr<sf::RenderWindow> rw, std::shared_ptr<sf::Font> font);
+    TextButton(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font) : Button(window), font(font), text(window)
+    {
 
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, CMode mode) override;
-
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, Mode modeX, Mode modeY) override;
+    }
 
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, CMode mode);
 
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY);
 
+
     virtual void Update() override;
+
+    virtual void Draw() override;
 
     sf::String getMessage()
     {
         ISCREATED;
-        return message;
+        return text.getString();
     }
 
-    sf::Text getText()
+    Text getText()
     {
         ISCREATED;
         return text;
@@ -34,6 +41,12 @@ public:
     {
         ISCREATED;
         return textPosition;
+    }
+
+    sf::Vector2f getModedTextPosition()
+    {
+        ISCREATED;
+        return text.getPosition();
     }
 
     sf::Color getTextColor()
@@ -51,17 +64,16 @@ public:
     unsigned int getFontSize()
     {
         ISCREATED;
-        return fontSize;
+        return text.getCharacterSize();
     }
 
     virtual void setMessage(sf::String newMessage)
     {
         ISCREATED;
-        message = newMessage;
         text.setString(newMessage);
     }
 
-    virtual void setText(sf::Text newText)
+    virtual void setText(Text newText)
     {
         ISCREATED;
         text = newText;
@@ -78,21 +90,20 @@ public:
     {
         ISCREATED;
         textColor = newTextColor;
-        text.setFillColor(textColor);
+        text.setColor(textColor);
     }
 
     virtual void setFont(std::shared_ptr<sf::Font> newFont)
     {
         ISCREATED;
         font = newFont;
-        text.setFont(*font);
+        text.setFont(font);
     }
 
     virtual void setFontSize(unsigned int newFontSize)
     {
         ISCREATED;
-        fontSize = newFontSize;
-        text.setCharacterSize(fontSize);
+        text.setCharacterSize(newFontSize);
     }
 
     virtual void setMode(CMode newMode) override
@@ -109,10 +120,10 @@ public:
 
 protected:
 
-    std::shared_ptr<sf::Text> takeText()
+    Text& takeText()
     {
         ISCREATED;
-        return std::make_shared<sf::Text>(text);
+        return text;
     }
 
     void countTextPosition();
@@ -121,19 +132,15 @@ protected:
 
 private:
 
+    std::shared_ptr<sf::Font> font;
+
+    Text text;
+
     sf::Vector2f textPosition;
     sf::Vector2f diplacement;
 
     sf::Color textColor;
 
-    sf::String message;
-
-    std::shared_ptr<sf::Font> font;
-    unsigned int fontSize;
-
-    sf::Text text;
-
-    bool alreadyPressed;
-
+    bool alreadyPressed = false;
 };
 

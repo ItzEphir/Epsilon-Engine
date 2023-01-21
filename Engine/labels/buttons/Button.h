@@ -1,6 +1,7 @@
 #pragma once
-#include "IDrawable.h"
+#include "../Drawable.h"
 #include "SFML/System.hpp"
+#include "../Rectangle.h"
 #include <string>
 #include <functional>
 
@@ -15,28 +16,33 @@ enum class Mode
 
 struct CMode
 {
+
     Mode modeX;
     Mode modeY;
+
     CMode(Mode modex, Mode modey)
     {
         modeX = modex;
         modeY = modey;
     }
+
     CMode()
     {
         modeX = Mode::right;
         modeY = Mode::center;
     }
+
 };
 
-class Button :
-    public IDrawable
+class Button : public Drawable
 {
+
 public:
+
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, CMode mode);
     virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, Mode modeX, Mode modeY);
 
-    virtual void Give(void (*aimed)(), void (*pressed)(), void (*released)())
+    virtual void Give(std::function<void()> aimed, std::function<void()> pressed, std::function<void()> released)
     {
         ISCREATED;
         whenAimed = aimed;
@@ -46,12 +52,6 @@ public:
 
     virtual void Draw() override;
     virtual void Update() override = 0;
-
-    sf::Vector2f getPosition()
-    {
-        ISCREATED;
-        return position;
-    }
 
     sf::Vector2f getSize()
     {
@@ -89,39 +89,39 @@ public:
         return released;
     }
 
-    virtual void setPosition(sf::Vector2f newPosition)
+    virtual void setPosition(sf::Vector2f newPosition) override
     {
         position = newPosition;
-        rect.setPosition(position);
+        rectangle.setPosition(position);
     }
 
     virtual void setSize(sf::Vector2f newSize)
     {
         size = newSize;
-        rect.setSize(size);
+        rectangle.setSize(size);
     }
 
     virtual void setColor(sf::Color newColor)
     {
         color = newColor;
-        rect.setFillColor(color);
+        rectangle.setColor(color);
     }
 
     virtual void setMode(CMode newMode)
     {
         mode = newMode;
+        countPosition();
     }
 
     virtual void setMode(Mode newModeX, Mode newModeY)
     {
-        mode = CMode(newModeX, newModeY);
+        setMode(CMode(newModeX, newModeY));
     }
 
 protected:
-    Button(std::shared_ptr<sf::RenderWindow> rw) : IDrawable(rw)
+
+    Button(std::shared_ptr<Window> window) : Drawable(window), rectangle(window)
     {
-        rect = sf::RectangleShape();
-        setWindow(rw);
         Init();
         whenAimed = []() {};
         whenPressed = []() {};
@@ -145,9 +145,9 @@ protected:
         released = isReleased;
     }
 
-    virtual std::shared_ptr<sf::RectangleShape> takeRect()
+    virtual Rectangle& takeRectangle()
     {
-        return std::make_shared<sf::RectangleShape>(rect);
+        return rectangle;
     }
 
     void turnOn()
@@ -160,26 +160,29 @@ protected:
         return created;
     }
 
+    virtual void countPosition();
+
     std::function<void()> whenAimed;
     std::function<void()> whenPressed;
     std::function<void()> whenReleased;
 
 private:
+
     void Init();
 
     bool aimed;
     bool pressed;
     bool released;
 
-    sf::Vector2f position;
     sf::Vector2f size;
 
     sf::Color color;
 
-    sf::RectangleShape rect;
+    Rectangle rectangle;
 
     CMode mode;
 
     bool created = false;
+
 };
 

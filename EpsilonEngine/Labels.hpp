@@ -7,6 +7,5 @@
 #include "Labels/ISaveble.h"
 #include "Labels/Rect.h"
 #include "Labels/RenderImage.h"
-#include "Labels/Text.h"
 #include "Labels/UsualButton.h"
-#include "Labels/Text.h"
+#include "Labels/RenderText.h"

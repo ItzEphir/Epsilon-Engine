@@ -11,20 +11,23 @@ void Application::Load()
 	font = std::make_shared<sf::Font>();
 	font->loadFromFile("src/fonts/Nexa-Trial-Bold.ttf");
 
+	sf::Image icon;
+	icon.loadFromFile("src/icons/LightIcon.png");
+	
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
 	screen->Load();
 }
 
 void Application::Update()
 {
-	screen->Update();
-
 	if (screen->isEnded())
 	{
 		screen = screen->Next();
 		screen->Load();
 	}
 
-	// screen = screen->Next();
+	screen->Update();
 }
 
 void Application::Draw()

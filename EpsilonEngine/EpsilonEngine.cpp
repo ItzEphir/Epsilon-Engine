@@ -3,6 +3,7 @@
 #include "SFML/System.hpp"
 #include "Application.h"
 #include <Windows.h>
+#include "window/Window.h"
 
 static sf::Uint16 STYLE = sf::Style::Default;
 

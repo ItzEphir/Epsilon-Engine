@@ -1,4 +1,4 @@
-#include "Text.h"
+#include "RenderText.h"
 
 RenderText::RenderText(std::shared_ptr<sf::RenderWindow> window, std::shared_ptr<sf::Font> font, sf::String str, unsigned int characterSize, sf::Color color) 
 	: IDrawable(window), font(font), str(str), characterSize(characterSize), color(color)
