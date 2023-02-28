@@ -5,100 +5,66 @@
 #include <string>
 #include <functional>
 
-#define ISCREATED { if(!isCreated()) { throw "Button wasn`t initialized, please, use Button::Create() to initialize the button."; } }
-
-enum class Mode
-{
-    right,
-    center,
-    left
-};
-
-struct CMode
-{
-
-    Mode modeX;
-    Mode modeY;
-
-    CMode(Mode modex, Mode modey)
-    {
-        modeX = modex;
-        modeY = modey;
-    }
-
-    CMode()
-    {
-        modeX = Mode::right;
-        modeY = Mode::center;
-    }
-
-};
-
 class Button : public Drawable
 {
 
 public:
 
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, CMode mode);
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, Mode modeX, Mode modeY);
+    Button();
+    
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Color color, float radius, PositionMode mode = PositionMode::DEFAULT);
 
     virtual void Give(std::function<void()> aimed, std::function<void()> pressed, std::function<void()> released)
     {
-        ISCREATED;
         whenAimed = aimed;
         whenPressed = pressed;
         whenReleased = released;
     }
 
     virtual void Draw() override;
-    virtual void Update() override = 0;
-
-    sf::Vector2f getSize()
-    {
-        ISCREATED;
-        return size;
-    }
+    virtual void Update() override;
 
     sf::Color getColor()
     {
-        ISCREATED;
         return color;
-    }
-
-    CMode getMode()
-    {
-        ISCREATED;
-        return mode;
     }
 
     bool getAimed()
     {
-        ISCREATED;
         return aimed;
     }
 
     bool getPressed()
     {
-        ISCREATED;
         return pressed;
     }
 
     bool getReleased()
     {
-        ISCREATED;
         return released;
+    }
+
+    virtual void setRadius(float pixels)
+    {
+        rectangle.setRadius(pixels);
     }
 
     virtual void setPosition(sf::Vector2f newPosition) override
     {
-        position = newPosition;
+        Drawable::setPosition(newPosition);
         rectangle.setPosition(position);
     }
 
-    virtual void setSize(sf::Vector2f newSize)
+    virtual void setSize(sf::Vector2f newSize) override
     {
-        size = newSize;
+        Drawable::setSize(newSize);
         rectangle.setSize(size);
+    }
+
+    virtual void setScale(sf::Vector2f newScale) override
+    {
+        Drawable::setScale(newScale);
+        rectangle.setScale(scale);
     }
 
     virtual void setColor(sf::Color newColor)
@@ -107,42 +73,31 @@ public:
         rectangle.setColor(color);
     }
 
-    virtual void setMode(CMode newMode)
+    virtual void countSize() override
     {
-        mode = newMode;
-        countPosition();
-    }
 
-    virtual void setMode(Mode newModeX, Mode newModeY)
-    {
-        setMode(CMode(newModeX, newModeY));
     }
 
 protected:
-
-    Button(std::shared_ptr<Window> window) : Drawable(window), rectangle(window)
-    {
-        Init();
-        whenAimed = []() {};
-        whenPressed = []() {};
-        whenReleased = []() {};
-    }
-
+    
     bool Find();
 
     virtual void setAimed(bool isAimed)
     {
         aimed = isAimed;
+        if(aimed) whenAimed();
     }
 
     virtual void setPressed(bool isPressed)
     {
         pressed = isPressed;
+        if(pressed) whenPressed();
     }
 
     virtual void setReleased(bool isReleased)
     {
         released = isReleased;
+        if(released) whenReleased();
     }
 
     virtual Rectangle& takeRectangle()
@@ -150,39 +105,20 @@ protected:
         return rectangle;
     }
 
-    void turnOn()
-    {
-        created = true;
-    }
-
-    bool isCreated()
-    {
-        return created;
-    }
-
-    virtual void countPosition();
-
-    std::function<void()> whenAimed;
-    std::function<void()> whenPressed;
-    std::function<void()> whenReleased;
+    std::function<void()> whenAimed = []() {};
+    std::function<void()> whenPressed = []() {};
+    std::function<void()> whenReleased = []() {};
 
 private:
 
-    void Init();
-
-    bool aimed;
-    bool pressed;
-    bool released;
-
-    sf::Vector2f size;
+    bool aimed = false;
+    bool pressed = false;
+    bool released = false;
 
     sf::Color color;
 
     Rectangle rectangle;
 
-    CMode mode;
-
-    bool created = false;
-
+    bool alreadyPressed = false;
 };
 

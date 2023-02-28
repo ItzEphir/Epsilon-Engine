@@ -25,9 +25,7 @@ void Menu::Load()
     drawables.push_back(std::make_shared<Background>(bg));
 
     RenderText text = RenderText(window, font, "aboba", 30, sf::Color::Black);
-    text.setPosition(sf::Vector2f(100, 100));
+    text.setPosition(sf::Vector2f(200, 200));
     text.Centralize();
     drawables.push_back(std::make_shared<RenderText>(text));
-
-	// nextScreen.reset(this);
 }

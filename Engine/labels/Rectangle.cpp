@@ -1,39 +1,31 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(std::shared_ptr<Window> window) : Drawable(window)
+Rectangle::Rectangle() : Drawable(), shape(sf::FloatRect(position, size), 0.0f)
 {
-    shape = sf::RectangleShape(size);
-    shape.setPosition(position);
-    color = sf::Color::Black;
-    shape.setFillColor(color);
+
 }
 
-Rectangle::Rectangle(std::shared_ptr<Window> window, sf::Vector2f position, sf::Vector2f size) : Drawable(window)
+void Rectangle::Create(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Color color, float radius, PositionMode positionMode)
 {
-    shape = sf::RectangleShape(this->size);
-    shape.setPosition(this->position);
-    color = sf::Color::Black;
-    shape.setFillColor(color);
+    setPosition(position);
+    setSize(size);
+    setScale(scale);
+    setColor(color);
+    setRadius(radius);
+    setPositionMode(positionMode);
 }
 
-void Rectangle::Centralize(bool turn)
+void Rectangle::Update()
 {
-     if (turn && !centralized)
-    {
-        position = sf::Vector2f(
-            position.x - size.x / 2,
-            position.y - size.y / 2
-        );
-        shape.setPosition(position);
-        centralized = true;
-    }
-    else if (!turn && centralized)
-    {
-        position = sf::Vector2f(
-            position.x + size.x / 2,
-            position.y + size.y / 2
-        );
-        shape.setPosition(position);
-        centralized = true;
-    }
+    
+}
+
+void Rectangle::Draw()
+{
+    window->draw(shape);
+}
+
+void Rectangle::countSize()
+{
+    
 }

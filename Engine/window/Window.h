@@ -11,11 +11,29 @@ public:
 
 	Window(sf::WindowHandle handle, const sf::ContextSettings &contextSettings = sf::ContextSettings());
 
+    static std::shared_ptr<Window> getInstance()
+    {
+        if (instance != nullptr)
+            return instance;
+        else
+            instance = std::make_shared<Window>();
+    }
+
+    static void setInstance(std::shared_ptr<Window> newInstance)
+    {
+        if (instance == nullptr) 
+            instance = newInstance;
+    }
+
+    [[deprecated]]
+    static void deleteInstance()
+    {
+        instance = nullptr;
+    }
+
 	void create(sf::VideoMode mode, sf::VideoMode countedMode, const sf::String &title, sf::Uint32 style = sf::Style::Default, const sf::ContextSettings &contextSettings = sf::ContextSettings());
 
 	void create(sf::WindowHandle handle, const sf::ContextSettings& contextSettings = sf::ContextSettings());
-
-#pragma region GETTERS
 
 	sf::VideoMode getMode()
 	{
@@ -57,20 +75,16 @@ public:
 		return icon;
 	}
 
-#pragma endregion
-
-#pragma region SETTERS
-
 	void setTitle(sf::String newTitle)
 	{
 		title = newTitle;
-		Window::setTitle(title);
+		sf::Window::setTitle(title);
 	}
 
 	void setSize(sf::Vector2f newSize)
 	{
 		size = newSize;
-		Window::setSize(size);
+        sf::Window::setSize({ size.x, size.y });
 	}
 
 	void setStyle(sf::Uint32 newStyle)
@@ -82,16 +96,14 @@ public:
 	void setPosition(sf::Vector2f newPosition)
 	{
 		position = newPosition;
-		Window::setPosition(position);
+        sf::Window::setPosition({ position.x, position.y });
 	}
 
 	void setIcon(sf::Image image)
 	{
 		icon = image;
-		Window::setIcon(image);
+        sf::Window::setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 	}
-
-#pragma endregion
 
 protected:
 
@@ -110,5 +122,7 @@ private:
 	sf::Vector2f position;
 
 	sf::Image icon;
+
+    static std::shared_ptr<Window> instance;
 };
 

@@ -10,6 +10,9 @@
     <Filter Include="buttons">
       <UniqueIdentifier>{8bbd7da1-bbb7-491b-a8c1-9fb85d2ea54a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{26eb3a78-70d6-4547-963f-1548d510d3e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -21,7 +24,7 @@
     <ClInclude Include="window\Window.h">
       <Filter>window</Filter>
     </ClInclude>
-    <ClInclude Include="labels\RenderImage.h">
+    <ClInclude Include="labels\Image.h">
       <Filter>labels</Filter>
     </ClInclude>
     <ClInclude Include="labels\buttons\Button.h">
@@ -36,12 +39,21 @@
     <ClInclude Include="labels\buttons\TextButton.h">
       <Filter>buttons</Filter>
     </ClInclude>
+    <ClInclude Include="labels\buttons\ImageButton.h">
+      <Filter>buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="labels\PositionMode.h">
+      <Filter>labels</Filter>
+    </ClInclude>
+    <ClInclude Include="system\Constrait.h">
+      <Filter>system</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window\Window.cpp">
       <Filter>window</Filter>
     </ClCompile>
-    <ClCompile Include="labels\RenderImage.cpp">
+    <ClCompile Include="labels\Image.cpp">
       <Filter>labels</Filter>
     </ClCompile>
     <ClCompile Include="labels\buttons\Button.cpp">
@@ -55,6 +67,18 @@
     </ClCompile>
     <ClCompile Include="labels\buttons\TextButton.cpp">
       <Filter>buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\Drawable.cpp">
+      <Filter>labels</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\buttons\ImageButton.cpp">
+      <Filter>buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="labels\PositionMode.cpp">
+      <Filter>labels</Filter>
+    </ClCompile>
+    <ClCompile Include="system\Constrait.cpp">
+      <Filter>system</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

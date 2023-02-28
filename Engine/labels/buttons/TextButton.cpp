@@ -1,129 +1,62 @@
 #include "TextButton.h"
 
-
-void TextButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, CMode mode)
+TextButton::TextButton() : Button(), text()
 {
-    Button::Create(position, size, color, mode);
+
+}
+
+void TextButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Color color, sf::Color textColor, float radius, sf::String message, unsigned int fontSize, PositionMode mode, PositionMode textPositionMode)
+{
+    Button::Create(position, size, scale, color, radius, mode);
     setTextColor(textColor);
     setMessage(message);
     setFontSize(fontSize);
-}
-
-void TextButton::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY)
-{
-    Button::Create(position, size, color, modeX, modeY);
-    setTextColor(textColor);
-    setMessage(message);
-    setFontSize(fontSize);
-}
-
-void TextButton::Update()
-{
-    ISCREATED;
-
-    if (Find())
-    {
-        setAimed(true);
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-        {
-            setPressed(true);
-            alreadyPressed = true;
-        }
-        else
-        {
-            setPressed(false);
-            if (alreadyPressed)
-            {
-                alreadyPressed = false;
-                setReleased(true);
-            }
-            else
-            {
-                setReleased(false);
-            }
-        }
-    }
-    else
-    {
-        setAimed(false);
-    }
-
-    if (getAimed())
-    {
-        whenAimed();
-    }
-    if (getPressed())
-    {
-        whenPressed();
-    }
-    if (getReleased())
-    {
-        whenReleased();
-    }
 }
 
 void TextButton::Draw()
 {
-    ISCREATED;
-    takeRectangle().Draw();
+    Button::Draw();
     text.Draw();
 }
 
 void TextButton::countTextPosition()
 {
-    switch (getMode().modeX)
+    switch (text.getPositionMode().modeX)
     {
-    case Mode::right:
-        text.setPosition(sf::Vector2f(
-            textPosition.x,
-            text.getPosition().y
-        ));
+    case Mode::left:
+        text.setPosition(sf::Vector2f(position.x + padding.x, text.getPosition().y));
         break;
     case Mode::center:
-        text.setPosition(sf::Vector2f(
-            textPosition.x - text.getSize().x / 2,
-            text.getPosition().y
-        ));
+        text.setPosition(sf::Vector2f(position.x + size.x / 2, text.getPosition().y));
         break;
-    case Mode::left:
-        text.setPosition(sf::Vector2f(
-            textPosition.x - text.getSize().x,
-            text.getPosition().y
-        ));
+    case Mode::right:
+        text.setPosition(sf::Vector2f(position.x + size.x - padding.x, text.getPosition().y));
         break;
+    default:
+        throw PositionModeException("Trying to compare modeX with top/bottom/other");
     }
 
-    switch (getMode().modeY)
+    switch (text.getPositionMode().modeY)
     {
-    case Mode::right:
-        text.setPosition(sf::Vector2f(
-            text.getPosition().x,
-            textPosition.y
-        ));
+    case Mode::top:
+        text.setPosition(sf::Vector2f(text.getPosition().x, position.y + padding.y));
         break;
     case Mode::center:
-        text.setPosition(sf::Vector2f(
-            text.getPosition().x,
-            textPosition.y - text.getSize().y / 2
-        ));
+        text.setPosition(sf::Vector2f(text.getPosition().x, position.y + size.y / 2));
         break;
-    case Mode::left:
-        text.setPosition(sf::Vector2f(
-            text.getPosition().x,
-            textPosition.y - text.getSize().y
-        ));
+    case Mode::bottom:
+        text.setPosition(sf::Vector2f(text.getPosition().x, position.y + size.y - padding.y));
         break;
+    default:
+        throw PositionModeException("Trying to compare modeY with left/right/other");
     }
 }
 
 void TextButton::countSize()
 {
-    float textLength = text.getSize().x;
-    float textHeight = text.getSize().y;
+    float textLength = text.getTextSize().x;
+    float textHeight = text.getTextSize().y;
 
-    diplacement = sf::Vector2f(-textLength / text.getString().getSize(), -textHeight / 2);
-    setSize(sf::Vector2f(textLength - 2 * diplacement.x, textHeight - 2 * diplacement.y));
+    setPadding(sf::Vector2f(-textLength / text.getString().getSize(), -textHeight / 2));
+    setSize(sf::Vector2f(textLength - 2 * padding.x, textHeight - 2 * padding.y));
 }
-
-
-

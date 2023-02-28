@@ -1,24 +1,18 @@
 #include "Text.h"
 
-Text::Text(std::shared_ptr<Window> window) : Drawable(window)
+Text::Text() : Drawable()
 {
     
 }
 
-Text::Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font) : Drawable(window), font(font)
+void Text::Create(std::shared_ptr<sf::Font> font, sf::String message, sf::Vector2f position, sf::Vector2f size, unsigned int characterSize, sf::Color color, PositionMode positionMode)
 {
-    
-}
-
-Text::Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font, sf::String str, unsigned int characterSize, sf::Color color) : Drawable(window), font(font), str(str), characterSize(characterSize), color(color)
-{
-    text = sf::Text(str, *font, characterSize);
-}
-
-Text::Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font, sf::String str, sf::Vector2f position, unsigned int characterSize, sf::Color color) : Drawable(window), font(font), str(str), characterSize(characterSize), color(color)
-{
-    text = sf::Text(str, *font, characterSize);
+    setFont(font);
+    setString(message);
     setPosition(position);
+    setSize(size);
+    setCharacterSize(characterSize);
+    setColor(color);
 }
 
 void Text::Update()
@@ -31,24 +25,7 @@ void Text::Draw()
     window->draw(text);
 }
 
-void Text::Centralize(bool turn)
+void Text::countSize()
 {
-    if (turn && !centralized)
-    {
-        position = sf::Vector2f(
-            position.x - size.x / 2,
-            position.y - size.y / 2
-        );
-        text.setPosition(position);
-        centralized = true;
-    }
-    else if (!turn && centralized)
-    {
-        position = sf::Vector2f(
-            position.x + size.x / 2,
-            position.y + size.y / 2
-        );
-        text.setPosition(position);
-        centralized = true;
-    }
+    setSize(sf::Vector2f(text.getLocalBounds().width, text.getLocalBounds().height));
 }

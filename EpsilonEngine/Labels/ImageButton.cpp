@@ -1,4 +1,5 @@
 #include "ImageButton.h"
+#include "ImageButton.h"
 
 ImageButton::ImageButton(std::shared_ptr<sf::RenderWindow> rw, std::shared_ptr<sf::Font> font) : UsualButton(rw, font), image(rw)
 {

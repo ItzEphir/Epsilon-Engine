@@ -1,88 +1,54 @@
 #include "Button.h"
 
+Button::Button() : Drawable(), rectangle()
+{
+
+}
+
 void Button::Draw()
 {
-    ISCREATED;
     rectangle.Draw();
 }
 
-void Button::Init()
+void Button::Update()
 {
-    aimed = false;
-    pressed = false;
-    released = false;
+    if (Find())
+    {
+        setAimed(true);
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+        {
+            setPressed(true);
+            alreadyPressed = true;
+        }
+        else
+        {
+            setPressed(false);
+            if (alreadyPressed)
+            {
+                alreadyPressed = false;
+                setReleased(true);
+            }
+            else 
+                setReleased(false);
+        }
+    }
+    else 
+        setAimed(false);
 }
 
-void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, CMode mode = CMode(Mode::right, Mode::center))
+void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Color color, float radius, PositionMode positionMode)
 {
-    turnOn();
-    setSize(size);
     setPosition(position);
-    setColor(color);
-    setMode(mode);
-}
-
-void Button::Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, Mode modeX, Mode modeY)
-{
-    turnOn();
     setSize(size);
-    setPosition(position);
+    setScale(scale);
     setColor(color);
-    setMode(CMode(modeX, modeY));
+    setRadius(radius);
+    setPositionMode(positionMode);
 }
 
 bool Button::Find()
 {
-    ISCREATED
-
     sf::Vector2i mouse = sf::Mouse::getPosition(*window);
 
-    return (position.x < mouse.x&& position.y < mouse.y&& position.x + size.x > mouse.x&& position.y + size.y > mouse.y) ? true : false;
-}
-
-void Button::countPosition()
-{
-    switch (mode.modeX)
-    {
-    case Mode::right:
-        rectangle.setPosition(sf::Vector2f(
-            position.x,
-            rectangle.getPosition().y
-        ));
-        break;
-    case Mode::center:
-        rectangle.setPosition(sf::Vector2f(
-            position.x - size.x / 2,
-            rectangle.getPosition().y
-        ));
-        break;
-    case Mode::left:
-        rectangle.setPosition(sf::Vector2f(
-            position.x - size.x,
-            rectangle.getPosition().y
-        ));
-        break;
-    }
-
-    switch (mode.modeY)
-    {
-    case Mode::right:
-        rectangle.setPosition(sf::Vector2f(
-            rectangle.getPosition().x,
-            position.y
-        ));
-        break;
-    case Mode::center:
-        rectangle.setPosition(sf::Vector2f(
-            rectangle.getPosition().x,
-            position.y - size.y / 2
-        ));
-        break;
-    case Mode::left:
-        rectangle.setPosition(sf::Vector2f(
-            rectangle.getPosition().x,
-            position.y - size.y
-        ));
-        break;
-    }
+    return position.x < mouse.x && position.y < mouse.y && position.x + size.x > mouse.x && position.y + size.y > mouse.y;
 }

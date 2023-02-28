@@ -133,19 +133,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="labels\buttons\Button.h" />
+    <ClInclude Include="labels\buttons\ImageButton.h" />
     <ClInclude Include="labels\buttons\TextButton.h" />
+    <ClInclude Include="labels\PositionMode.h" />
     <ClInclude Include="labels\Drawable.h" />
     <ClInclude Include="labels\Rectangle.h" />
-    <ClInclude Include="labels\RenderImage.h" />
+    <ClInclude Include="labels\Image.h" />
     <ClInclude Include="labels\Text.h" />
+    <ClInclude Include="system\Constrait.h" />
     <ClInclude Include="window\Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="labels\buttons\Button.cpp" />
+    <ClCompile Include="labels\buttons\ImageButton.cpp" />
     <ClCompile Include="labels\buttons\TextButton.cpp" />
+    <ClCompile Include="labels\Drawable.cpp" />
+    <ClCompile Include="labels\PositionMode.cpp" />
     <ClCompile Include="labels\Rectangle.cpp" />
-    <ClCompile Include="labels\RenderImage.cpp" />
+    <ClCompile Include="labels\Image.cpp" />
     <ClCompile Include="labels\Text.cpp" />
+    <ClCompile Include="system\Constrait.cpp" />
     <ClCompile Include="window\Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

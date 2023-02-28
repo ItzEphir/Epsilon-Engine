@@ -5,33 +5,24 @@ class Text : public Drawable
 {
 public:
 
-    Text(std::shared_ptr<Window> window);
+    Text();
 
-    Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font);
-
-    Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font, sf::String str, unsigned int characterSize = 14, sf::Color color = sf::Color::White);
-
-    Text(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font, sf::String str, sf::Vector2f position, unsigned int characterSize = 14, sf::Color color = sf::Color::White);
+    void Create(std::shared_ptr<sf::Font> font, sf::String message, sf::Vector2f position, sf::Vector2f size, unsigned int characterSize = 14, sf::Color color = sf::Color::White, PositionMode positionMode = PositionMode::DEFAULT);
 
     virtual void Update() override;
 
     virtual void Draw() override;
 
-    void Centralize(bool turn = true);
+    virtual void countSize() override;
 
     std::shared_ptr<sf::Font> getFont()
     {
         return font;
     }
 
-    sf::Vector2f getSize()
-    {
-        return size;
-    }
-
     sf::String getString()
     {
-        return str;
+        return message;
     }
 
     sf::Text getText()
@@ -49,6 +40,11 @@ public:
         return characterSize;
     }
 
+    sf::Vector2f getTextSize()
+    {
+        return sf::Vector2f(text.getLocalBounds().width, text.getLocalBounds().height);
+    }
+
     virtual void setFont(std::shared_ptr<sf::Font> newFont)
     {
         font = newFont;
@@ -57,14 +53,14 @@ public:
 
     virtual void setPosition(sf::Vector2f newPosition) override
     {
-        position = newPosition;
+        Drawable::setPosition(newPosition);
         text.setPosition(position);
     }
 
-    virtual void setString(sf::String str)
+    virtual void setString(sf::String newMessage)
     {
-        this->str = str;
-        text.setString(this->str);
+        message = newMessage;
+        text.setString(message);
     }
 
     virtual void setColor(sf::Color newColor)
@@ -79,20 +75,22 @@ public:
         text.setCharacterSize(characterSize);
     }
 
+    virtual void setPositionMode(PositionMode newPositionMode) override
+    {
+        Drawable::setPositionMode(newPositionMode);
+        setPosition(position);
+    }
+
 protected:
 
 private:
 
     std::shared_ptr<sf::Font> font;
-
-    sf::Vector2f size;
-    sf::String str;
+    sf::String message;
     sf::Text text;
     sf::Color color;
 
     unsigned int characterSize = 14;
-
-    bool centralized = false;
 
 };
 

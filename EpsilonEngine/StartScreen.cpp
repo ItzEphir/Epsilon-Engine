@@ -35,22 +35,16 @@ void StartScreen::Update()
 
 void StartScreen::Draw()
 {
-
 	for (int i = 0; i < drawables.size(); i++)
 	{
 		drawables[i]->Draw();
 	}
-	// window->draw(logo);
 
-	// sf::Image img = sf::Image();
-	// img.loadFromFile("src/pngs/start/Dark.png");
-	// sf::Texture imgt = sf::Texture();
-	// imgt.loadFromImage(img);
-	// sf::Sprite imgs = sf::Sprite();
-	// imgs.setTexture(imgt);
-	// imgs.setPosition(sf::Vector2f(100, 100));
-
-	// window->draw(imgs);
+    RenderImage img = RenderImage(window, "src/pngs/start/Light.png");
+    img.setPosition({ 100, 100 });
+    img.setScale({ 1, 1 });
+    img.Centralize();
+    img.Draw();
 }
 
 void StartScreen::Load()
@@ -75,21 +69,23 @@ void StartScreen::Load()
 
 void StartScreen::firstLoading()
 {
-	// Sleep(9000);
 	std::shared_ptr<Rect> sl = std::dynamic_pointer_cast<Rect>(drawables[3]);
-	sl->setSize(sf::Vector2f(200, 10));
+	sl->setSize(sf::Vector2f(rand() % 151, 10));
+	Sleep(rand() % 4001);
 }
+
 
 void StartScreen::secondLoading()
 {
 	nextScreen = std::make_shared<Menu>(Menu(window, font));
-	Sleep(1000);
 	std::shared_ptr<Rect> sl = std::dynamic_pointer_cast<Rect>(drawables[3]);
-	sl->setSize(sf::Vector2f(400, 10));
+	sl->setSize(sf::Vector2f(150 + rand() % 151, 10));
+    Sleep(rand() % 4001);
 }
 
 void StartScreen::thirdLoading()
 {
-	// Sleep(1000);
-	
+    std::shared_ptr<Rect> sl = std::dynamic_pointer_cast<Rect>(drawables[3]);
+    sl->setSize(sf::Vector2f(400, 10));
+	Sleep(rand() % 3001);
 }

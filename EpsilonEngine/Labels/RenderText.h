@@ -22,6 +22,7 @@ public:
 	virtual void setPosition(sf::Vector2f newPosition)
 	{
 		position = newPosition;
+        text.setPosition(position);
 	}
 
 	sf::Vector2f getPosition()

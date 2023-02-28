@@ -5,116 +5,88 @@
 class TextButton : public Button
 {
 public:
-    
-    TextButton(std::shared_ptr<Window> window) : Button(window), text(window)
-    {
-        
-    }
 
-    TextButton(std::shared_ptr<Window> window, std::shared_ptr<sf::Font> font) : Button(window), font(font), text(window)
-    {
+    TextButton();
 
-    }
-
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, CMode mode);
-
-    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Color color, sf::Color textColor, sf::String message, unsigned int fontSize, Mode modeX, Mode modeY);
-
-
-    virtual void Update() override;
+    virtual void Create(sf::Vector2f position, sf::Vector2f size, sf::Vector2f scale, sf::Color color, sf::Color textColor, float radius, sf::String message, unsigned int fontSize, PositionMode positionMode = PositionMode::ORIGINAL_POSITION, PositionMode textPositionMode = PositionMode::DEFAULT);
 
     virtual void Draw() override;
 
     sf::String getMessage()
     {
-        ISCREATED;
         return text.getString();
     }
 
     Text getText()
     {
-        ISCREATED;
         return text;
     }
 
     sf::Vector2f getTextPosition()
     {
-        ISCREATED;
-        return textPosition;
-    }
-
-    sf::Vector2f getModedTextPosition()
-    {
-        ISCREATED;
         return text.getPosition();
     }
 
     sf::Color getTextColor()
     {
-        ISCREATED;
-        return textColor;
+        return text.getColor();
     }
 
     std::shared_ptr<sf::Font> getFont()
     {
-        ISCREATED;
         return font;
     }
 
     unsigned int getFontSize()
     {
-        ISCREATED;
         return text.getCharacterSize();
+    }
+
+    virtual void setPosition(sf::Vector2f newPosition) override
+    {
+        Drawable::setPosition(newPosition);
     }
 
     virtual void setMessage(sf::String newMessage)
     {
-        ISCREATED;
         text.setString(newMessage);
     }
 
     virtual void setText(Text newText)
     {
-        ISCREATED;
         text = newText;
     }
 
     virtual void setTextPosition(sf::Vector2f newTextPosition)
     {
-        ISCREATED;
-        textPosition = newTextPosition;
-        text.setPosition(textPosition);
+        text.setPosition(newTextPosition);
+        countTextPosition();
     }
 
     virtual void setTextColor(sf::Color newTextColor)
     {
-        ISCREATED;
-        textColor = newTextColor;
-        text.setColor(textColor);
+        text.setColor(newTextColor);
     }
 
     virtual void setFont(std::shared_ptr<sf::Font> newFont)
     {
-        ISCREATED;
-        font = newFont;
-        text.setFont(font);
+        text.setFont(newFont);
     }
 
     virtual void setFontSize(unsigned int newFontSize)
     {
-        ISCREATED;
         text.setCharacterSize(newFontSize);
     }
 
-    virtual void setMode(CMode newMode) override
+    virtual void setTextPositionMode(PositionMode newTextPositionMode)
     {
-        Button::setMode(newMode);
+        text.setPositionMode(newTextPositionMode);
         countTextPosition();
     }
 
-    virtual void setMode(Mode newModeX, Mode newModeY) override
+    virtual void setPadding(sf::Vector2f newPadding)
     {
-        Button::setMode(newModeX, newModeY);
+        padding = newPadding;
         countTextPosition();
     }
 
@@ -122,25 +94,19 @@ protected:
 
     Text& takeText()
     {
-        ISCREATED;
         return text;
     }
 
     void countTextPosition();
 
-    void countSize();
+    virtual void countSize() override;
 
 private:
 
-    std::shared_ptr<sf::Font> font;
-
     Text text;
 
-    sf::Vector2f textPosition;
-    sf::Vector2f diplacement;
-
-    sf::Color textColor;
-
     bool alreadyPressed = false;
+
+    sf::Vector2f padding = { 0, 0 };
 };
 
